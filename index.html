@@ -1,10 +1,49 @@
 <html>
 <head>
-<title>Creative 2</title>
+  <title>Creative 2</title>
+
+  <script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous">
+  </script>
+
+  <script>
+  $(document).ready(function() {
+      var myurl= "https://api.spacexdata.com/v1/launches/latest";
+      console.log(myurl);
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        success : function(parsed_json) {
+          var everything = "";
+          var flightNumber = parsed_json[0]['flight_number'];
+          console.log(flightNumber);
+          everything += "Flight number: "
+          everything += flightNumber;
+
+          console.log(everything);
+
+          /*var location = parsed_json['location']['city'];
+          var temp_string = parsed_json['current_observation']['temperature_string'];
+          var current_weather = parsed_json['current_observation']['weather'];
+          everything = "<ul>";
+          everything += "<li>Location: "+location;
+          everything += "<li>Temperature: "+temp_string;
+          everything += "<li>Weather: "+current_weather;
+          everything += "</ul>";*/
+          $("#latestLaunch").html(everything);
+        }
+      });
+  });
+  </script>
 </head>
 
 <body>
-Creative Project 2.
+  Creative Project 2.
+  <br>
+  <div id="latestLaunch">
+  </div>
 </body>
 
 </html>
