@@ -16,25 +16,36 @@
         url : myurl,
         dataType : "json",
         success : function(parsed_json) {
-          var everything = "";
-          var flightNumber = parsed_json[0]['flight_number'];
-          console.log(flightNumber);
-          everything += "Flight number: "
-          everything += flightNumber;
 
-          console.log(everything);
 
-          /*var location = parsed_json['location']['city'];
-          var temp_string = parsed_json['current_observation']['temperature_string'];
-          var current_weather = parsed_json['current_observation']['weather'];
-          everything = "<ul>";
-          everything += "<li>Location: "+location;
-          everything += "<li>Temperature: "+temp_string;
-          everything += "<li>Weather: "+current_weather;
-          everything += "</ul>";*/
-          $("#latestLaunch").html(everything);
+          $("#payloadType").html("Payload type: " + parsed_json[0]['payloads'][0]['payload_type']);
+          $("#rocketName").html("Rocket name: " + parsed_json[0]['rocket']['rocket_name']);
+          $("#launchDate").html("Launch date: " + parsed_json[0]['launch_date_utc']);
+          $("#launchSuccess").html("Launch Success: " + parsed_json[0]['launch_success']);
+          $("#videoLink").html("<a href='" + parsed_json[0]['links']['video_link'] + "'>Video Link</a>");
+
+
+        }
+
+      });
+
+      var myurl2= "https://api.spacexdata.com/v1/launches/upcoming";
+      console.log(myurl2);
+      $.ajax({
+        url : myurl2,
+        dataType : "json",
+        success : function(parsed_json2) {
+
+
+          $("#UpayloadType").html("Payload type: " + parsed_json2[0]['payloads'][0]['payload_type']);
+          $("#UrocketName").html("Rocket name: " + parsed_json2[0]['rocket']['rocket_name']);
+          $("#UlaunchDate").html("Launch date: " + parsed_json2[0]['launch_date_utc']);
+          $("#UvideoLink").html("<a href='" + parsed_json2[0]['links']['video_link'] + "'>Video Link</a>");
+
+
         }
       });
+
   });
   </script>
 </head>
@@ -42,23 +53,32 @@
 <body>
 		<!-- CS 260: Creative Lab 2 -->
 		<h1>SpaceX Information</h1>
-		
+
 		<!-- See the most recent launches from SpaceX -->
-		<h2>Recent Launches</h2>
+		<h2>Latest Launch</h2>
 		<p id = "recentLaunches">Recent launch information here</p>
+    <p id="payloadType"></p>
+    <p id="rocketName"></p>
+    <p id="launchDate"></p>
+    <p id="launchSuccess"></p>
+    <p id="videoLink"></p>
 		<br><br>
-		
+
 		<!-- See the upcoming launches from SpaceX -->
 		<h2>Upcoming Launches</h2>
 		<p id = "upcomingLaunches">Upcoming launch information here</p>
+    <p id="UpayloadType"></p>
+    <p id="UrocketName"></p>
+    <p id="UlaunchDate"></p>
+    <p id="UvideoLink"></p>
 		<br><br>
-		
+
 		<!-- Cheesy inspirational quote about rockets -->
 		<p style="position: fixed; bottom: 0; width:100%; text-align: center; color: white"><i>
-			"It [the rocket] will free man from his remaining chains, the chains of <span style="color: black">gravity</span> 
+			"It [the rocket] will free man from his remaining chains, the chains of <span style="color: black">gravity</span>
 			which still tie him to this planet. It will open to him the gates of heaven."<br>
 			- Wernher von <span style="color: black">Braun</span>, Rocket Engineer </i></p>
-	
+
 	</body>
 
 </html>
